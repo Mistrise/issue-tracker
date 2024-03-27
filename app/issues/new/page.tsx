@@ -21,6 +21,17 @@ const NewIssuePage = () => {
     const [error, setError] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
 
+    const onSubmit = handleSubmit( async (data) => {
+        try {
+            setIsSubmitting(true)
+            await axios.post('/api/issues', data)
+            router.push('/issues')
+        } catch (e) {
+            setIsSubmitting(false)
+            setError('A unexpected error occurred')
+        }
+    })
+
     return (
         <div className='max-w-xl p-4 mx-auto text-center'>
             {error && <Callout.Root size="3" color="red" className='mb-2'>
@@ -28,19 +39,10 @@ const NewIssuePage = () => {
                     {error}
                 </Callout.Text>
             </Callout.Root>}
-            <form className='space-y-3' onSubmit={handleSubmit(async (data) => {
-                try {
-                    setIsSubmitting(true)
-                    await axios.post('/api/issues', data)
-                    router.push('/issues')
-                } catch (e) {
-                    setIsSubmitting(false)
-                    setError('A unexpected error occurred')
-                }
-            })}>
+            <form className='space-y-3' onSubmit={onSubmit}>
                 <TextField.Root placeholder='title' {...register('title')} />
                 <ErrorMessage>{errors.title?.message}</ErrorMessage>
-                <TextArea placeholder='description' {...register('description')}/>
+                <TextArea size="3" placeholder='description' {...register('description')}/>
                 <ErrorMessage>{errors.description?.message}</ErrorMessage>
                 <Button disabled={isSubmitting}>Submit New Issue{isSubmitting && <Spinner></Spinner>}</Button>
             </form>
