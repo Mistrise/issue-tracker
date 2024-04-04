@@ -1,7 +1,8 @@
 import React from 'react';
 import prisma from "@/prisma/client";
 import {notFound} from "next/navigation";
-import {param} from "ts-interface-checker";
+import {Card, Flex, Heading, Text} from "@radix-ui/themes";
+import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 
 
 interface Props {
@@ -9,9 +10,6 @@ interface Props {
 }
 
 const IssueDetailPage = async ({params} :Props) => {
-    if (typeof params.id !== 'number') {
-        return notFound()
-    }
 
     const issue = await prisma.issue.findUnique({
         where: {
@@ -23,12 +21,16 @@ const IssueDetailPage = async ({params} :Props) => {
         return notFound()
     }
     return (
-        <div>
-            <p>title is {issue.title}</p>
-            <p>description is {issue.description}</p>
-            <p>status is {issue.status}</p>
-            <p>created at {issue.createdAt.toDateString()}</p>
-        </div>
+        <>
+            <Heading>{issue.title}</Heading>
+            <Flex gap='3' my='2'>
+                <IssueStatusBadge status={issue.status}/>
+                <Text>created at {issue.createdAt.toDateString()}</Text>
+            </Flex>
+            <Card>
+                <p>description is {issue.description}</p>
+            </Card>
+        </>
     );
 };
 
