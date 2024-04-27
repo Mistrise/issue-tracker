@@ -32,6 +32,7 @@ const NewIssuePage = () => {
         }
     })
 
+
     return (
         <div className='max-w-xl p-4 mx-auto text-center'>
             {error && <Callout.Root size="3" color="red" className='mb-2'>
