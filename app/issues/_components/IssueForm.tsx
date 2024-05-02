@@ -42,7 +42,7 @@ const IssueForm = ({issue}: Props) => {
 
 
     return (
-        <div className='max-w-xl p-4 mx-auto text-center'>
+        <div className='max-w-xl p-4 mx-auto'>
             {error && <Callout.Root size="3" color="red" className='mb-2'>
                 <Callout.Text>
                     {error}
