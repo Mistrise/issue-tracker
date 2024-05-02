@@ -3,6 +3,7 @@ import React from 'react';
 import {AlertDialog, Button, Flex} from "@radix-ui/themes";
 
 const DeleteIssueButton = ({ issueId }: {issueId: number}) => {
+
     return (
         <AlertDialog.Root>
             <AlertDialog.Trigger>
