@@ -28,7 +28,7 @@ const AuthStatus = () => {
 
     if (status === 'loading') return null
 
-    if (status === "unauthenticated") return <Link href={'/api/auth/signin'}>Login</Link>
+    if (status === "unauthenticated") return <Link className='nav-link' href={'/api/auth/signin'}>Login</Link>
 
     return (<Box>
             <DropdownMenu.Root>
@@ -56,9 +56,8 @@ const NavLinks = () => {
             {links.map(link => <li key={link.href}>
                 <Link
                     className={classnames({
-                        'text-zinc-500': pathName !== link.href,
-                        'text-zinc-900': pathName === link.href,
-                        'hover:text-zinc-800 transition-colors': true
+                        "nav-link": true,
+                        '!text-zinc-900': pathName === link.href,
                     })}
                     href={link.href}>
                     {link.label}
